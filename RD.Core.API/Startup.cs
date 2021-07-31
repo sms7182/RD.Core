@@ -9,7 +9,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using NServiceBus;
 using RD.Core.API.Configuration;
-
+using RD.Core.Messaging;
 using RDNameSpace;
 using System;
 using System.Collections.Generic;

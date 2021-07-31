@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\RD.Core.Contract\RD.Core.Contract.csproj" />
+    <ProjectReference Include="..\RD.Core.Messaging\RD.Core.Messaging.csproj" />
   </ItemGroup>
 
 </Project>

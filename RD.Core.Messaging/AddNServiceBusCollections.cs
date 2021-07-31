@@ -7,7 +7,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace RD.Core.API.Configuration
+namespace RD.Core.Messaging
 {
     public static class AddNServiceBusCollections
     {

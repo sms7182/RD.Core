@@ -1,6 +1,8 @@
 ﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NServiceBus;
+using RD.Core.Messaging;
 using System;
 using System.Threading.Tasks;
 
@@ -15,6 +17,8 @@ namespace RD.ConsumerService.CommandExample
         static async Task Main(string[] args)
         {
             Console.Title = "CommandHanlder";
+            var serviceCollection=new ServiceCollection();
+            serviceCollection.AddScoped<IBus, Bus>();
             await CreateHostBuilder(args).RunConsoleAsync();
         }
 
@@ -23,7 +27,7 @@ namespace RD.ConsumerService.CommandExample
             return Host.CreateDefaultBuilder(args).ConfigureAppConfiguration((hostContext, builder) => { builder.AddUserSecrets<NServiceBusSecret>(); })
                        .UseNServiceBus(context =>
                        {
-                           var nserviceBusSection=  context.Configuration.GetSection("NServiceBusSecret").Get<NServiceBusSecret>();
+                           var nserviceBusSection = context.Configuration.GetSection("NServiceBusSecret").Get<NServiceBusSecret>();
 
                            var endpointConfiguration = new EndpointConfiguration(nserviceBusSection.EndpointHost);
 

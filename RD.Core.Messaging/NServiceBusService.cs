@@ -7,7 +7,7 @@ using System.Runtime.ExceptionServices;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace RD.Core.API.Configuration
+namespace RD.Core.Messaging
 {
     class NServiceBusService : IHostedService
     {
