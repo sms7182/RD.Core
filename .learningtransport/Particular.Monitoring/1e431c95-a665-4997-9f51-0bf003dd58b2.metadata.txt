@@ -1,0 +1,9 @@
+{
+  "NServiceBus.OriginatingEndpoint": "RD.ConsumerService.CommandExample",
+  "NServiceBus.OriginatingMachine": "DESKTOP-EQTPCOU",
+  "$.diagnostics.originating.hostid": "6710b89db343e38eda896008a9379abb",
+  "$.diagnostics.hostdisplayname": "DESKTOP-EQTPCOU",
+  "NServiceBus.EnclosedMessageTypes": "NServiceBus.Metrics.EndpointMetadataReport",
+  "NServiceBus.ContentType": "application\/json",
+  "NServiceBus.Transport.Learning.TimeToBeReceived": "7.00:00:00"
+}

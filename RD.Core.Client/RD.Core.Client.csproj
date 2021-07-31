@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <UserSecretsId>67a18588-a257-4e12-8fc3-d2ec93b13d39</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NServiceBus" Version="7.5.0" />
+    <PackageReference Include="NServiceBus.Extensions.Hosting" Version="1.1.0" />
+    <PackageReference Include="NServiceBus.Metrics.ServiceControl" Version="3.0.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\RD.Core.Contract\RD.Core.Contract.csproj" />
+  </ItemGroup>
+
+</Project>
