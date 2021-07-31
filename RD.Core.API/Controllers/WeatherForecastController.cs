@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using NServiceBus;
+using RD.Core.Messaging;
 using RDNameSpace;
 using System;
 using System.Collections.Generic;
@@ -22,13 +23,13 @@ namespace RD.Core.API.Controllers
         };
 
         private readonly ILogger<WeatherForecastController> _logger;
-        private readonly IMessageSession _messageSession;
+        private readonly IBus _bus;
 
 
-        public WeatherForecastController(IMessageSession messageSession, ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(IBus bus, ILogger<WeatherForecastController> logger)
         {
             _logger = logger;
-            _messageSession = messageSession;
+            _bus = bus;
         }
 
         [HttpGet]
@@ -51,7 +52,7 @@ namespace RD.Core.API.Controllers
 
             var command = new ClientPublishCommand();
 
-            await _messageSession.Send(command).ConfigureAwait(false);
+            await _bus.Send(command);
             _logger.LogInformation($"Sending PlaceOrder, OrderId = {orderId}");
 
             dynamic model = new ExpandoObject();

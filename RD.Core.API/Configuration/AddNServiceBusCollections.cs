@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using NServiceBus;
+using RD.Core.Messaging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -46,6 +47,8 @@ namespace RD.Core.API.Configuration
                 return management.MessageSession;
             });
             services.AddSingleton(provider => new Lazy<IMessageSession>(provider.GetService<IMessageSession>));
+            services.AddSingleton<IBus, Bus>();
+            
             return services;
         }
     }
