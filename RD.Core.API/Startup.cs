@@ -26,15 +26,11 @@ namespace RD.Core.API
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             var nserviceBusSecret = Configuration.GetSection("NServiceBusSecret").Get<NServiceBusSecret>();
-            services.AddNServiceBus(nserviceBusSecret.EndpointHost, endPointConfiguration => {
-                endPointConfiguration.UseTransport<LearningTransport>()
-                .Routing()
-                .RouteToEndpoint(typeof(ClientPublishCommand).Assembly, "RDNameSpace", nserviceBusSecret.DestinationEndpointHost);
-            });
+            services.AddNServiceBus(typeof(ClientPublishCommand), "RDNameSpace",nserviceBusSecret.EndpointHost, nserviceBusSecret.DestinationEndpointHost);
+          
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -43,7 +39,6 @@ namespace RD.Core.API
             });
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())

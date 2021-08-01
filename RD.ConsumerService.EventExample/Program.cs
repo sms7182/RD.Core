@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NServiceBus;
+using RD.ConsumerService.CommandExample;
 using RD.Core.Messaging;
 using System;
 using System.Threading.Tasks;
@@ -22,37 +23,40 @@ namespace RD.ConsumerService.EventExample
         public static IHostBuilder CreateHostBuilder(string[] args)
         {
             return Host.CreateDefaultBuilder(args).ConfigureAppConfiguration((hostContext, builder) => { builder.AddUserSecrets<NServiceBusSecret>(); })
-             .ConfigureServices(d =>
+             .ConfigureServices((hostContext, services) =>
              {
-                 d.AddScoped<IBus, Bus>();
-             })
-              .UseNServiceBus(context =>
-              {
-                  var nserviceBusSection = context.Configuration.GetSection("NServiceBusSecret").Get<NServiceBusSecret>();
+                 var nservisBusSecret = hostContext.Configuration.GetSection("NServiceBusSecret").Get<NServiceBusSecret>();
+                 services.AddNServiceBusPublisherEvent(nservisBusSecret.EndpointHost, typeof(PublishCommandEvent));
+                 services.AddScoped<IBus, Bus>();
 
-                  var endpointConfiguration = new EndpointConfiguration(nserviceBusSection.EndpointHost);
+             });
+              //.UseNServiceBus(context =>
+              //{
+              //    var nserviceBusSection = context.Configuration.GetSection("NServiceBusSecret").Get<NServiceBusSecret>();
 
-                  endpointConfiguration.UseTransport<LearningTransport>();
+              //    var endpointConfiguration = new EndpointConfiguration(nserviceBusSection.EndpointHost);
 
-                  endpointConfiguration.SendFailedMessagesTo("error");
-                  endpointConfiguration.AuditProcessedMessagesTo("audit");
-                  endpointConfiguration.SendHeartbeatTo("Particular.ServiceControl");
+              //    endpointConfiguration.UseTransport<LearningTransport>();
 
-                  // So that when we test recoverability, we don't have to wait so long
-                  // for the failed message to be sent to the error queue
-                  var recoverablility = endpointConfiguration.Recoverability();
-                  recoverablility.Delayed(
-                      delayed =>
-                      {
-                          delayed.TimeIncrease(TimeSpan.FromSeconds(2));
-                      }
-                  );
+              //    endpointConfiguration.SendFailedMessagesTo("error");
+              //    endpointConfiguration.AuditProcessedMessagesTo("audit");
+              //    endpointConfiguration.SendHeartbeatTo("Particular.ServiceControl");
 
-                  var metrics = endpointConfiguration.EnableMetrics();
-                  metrics.SendMetricDataToServiceControl("Particular.Monitoring", TimeSpan.FromMilliseconds(500));
+              //    // So that when we test recoverability, we don't have to wait so long
+              //    // for the failed message to be sent to the error queue
+              //    var recoverablility = endpointConfiguration.Recoverability();
+              //    recoverablility.Delayed(
+              //        delayed =>
+              //        {
+              //            delayed.TimeIncrease(TimeSpan.FromSeconds(2));
+              //        }
+              //    );
 
-                  return endpointConfiguration;
-              });
+              //    var metrics = endpointConfiguration.EnableMetrics();
+              //    metrics.SendMetricDataToServiceControl("Particular.Monitoring", TimeSpan.FromMilliseconds(500));
+
+              //    return endpointConfiguration;
+              //});
         }
     }
 }

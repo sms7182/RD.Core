@@ -11,7 +11,19 @@ namespace RD.Core.Messaging
 {
     public static class AddNServiceBusCollections
     {
-        public static IServiceCollection AddNServiceBus(this IServiceCollection services, string endPoint, Action<EndpointConfiguration> configuration)
+
+        public static IServiceCollection AddNServiceBus(this IServiceCollection services, Type type,string assembly,string endPoint,string destinationEndPoint)
+        {
+
+            AddNServiceBus(services, endPoint,endPointConfiguration =>
+             {
+                 endPointConfiguration.UseTransport<LearningTransport>().Routing().RouteToEndpoint(type.Assembly,assembly,destinationEndPoint);
+             });
+            
+            return services;
+
+        }
+        static IServiceCollection AddNServiceBus(this IServiceCollection services, string endPoint, Action<EndpointConfiguration> configuration)
         {
             var endPointConfiguration = new EndpointConfiguration(endPoint);
 
@@ -20,6 +32,15 @@ namespace RD.Core.Messaging
             services.AddNServiceBus(endPointConfiguration);
             return services;
 
+        }
+        public static IServiceCollection AddNServiceBusPublisherEvent(this IServiceCollection services,string publisherEndpoint,Type type)
+        {
+           var endPointConfiguration= new EndpointConfiguration(publisherEndpoint);
+            var transporter=  endPointConfiguration.UseTransport<LearningTransport>();
+            AddNServiceBus(services, endPointConfiguration);      
+       
+       
+            return services;
         }
        
         static IServiceCollection AddNServiceBus(this IServiceCollection services, EndpointConfiguration configuration)
@@ -51,5 +72,6 @@ namespace RD.Core.Messaging
             
             return services;
         }
+        
     }
 }
