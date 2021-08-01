@@ -41,33 +41,7 @@ class Program
                 services.AddScoped<IBus, Bus>();
 
             });
-              //.UseNServiceBus(context =>
-              //         {
-              //             var nserviceBusSection = context.Configuration.GetSection("NServiceBusSecret").Get<NServiceBusSecret>();
-
-              //             var endpointConfiguration = new EndpointConfiguration(nserviceBusSection.EndpointHost);
-
-              //             endpointConfiguration.UseTransport<LearningTransport>();
-
-              //             endpointConfiguration.SendFailedMessagesTo("error");
-              //             endpointConfiguration.AuditProcessedMessagesTo("audit");
-              //             endpointConfiguration.SendHeartbeatTo("Particular.ServiceControl");
-
-              //             // So that when we test recoverability, we don't have to wait so long
-              //             // for the failed message to be sent to the error queue
-              //             var recoverablility = endpointConfiguration.Recoverability();
-              //             recoverablility.Delayed(
-              //                 delayed =>
-              //                 {
-              //                     delayed.TimeIncrease(TimeSpan.FromSeconds(2));
-              //                 }
-              //             );
-
-              //             var metrics = endpointConfiguration.EnableMetrics();
-              //             metrics.SendMetricDataToServiceControl("Particular.Monitoring", TimeSpan.FromMilliseconds(500));
-
-              //             return endpointConfiguration;
-                     //  });
+            
         }
     }
 }
