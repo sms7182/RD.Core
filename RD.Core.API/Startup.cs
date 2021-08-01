@@ -29,7 +29,8 @@ namespace RD.Core.API
 
         public void ConfigureServices(IServiceCollection services)
         {
-            var nserviceBusSecret = Configuration.GetSection("NServiceBusSecret").Get<NServiceBusSecret>();
+            var nserviceBusSecret = Configuration.GetSection(typeof(NServiceBusSecret).Name)
+                .Get<NServiceBusSecret>();
             services.AddNServiceBus(typeof(ClientPublishCommand),"ShareNameSpace" , nserviceBusSecret.EndpointHost, nserviceBusSecret.DestinationEndpointHost,nserviceBusSecret.RabbitConnectionInfo);
           
 
