@@ -17,16 +17,33 @@ namespace RD.Core.Messaging
 
             AddNServiceBus(services, endPoint,endPointConfiguration =>
              {
-                 endPointConfiguration.UseTransport<LearningTransport>().Routing().RouteToEndpoint(type.Assembly,assembly,destinationEndPoint);
+                 var transporter = endPointConfiguration.UseTransport<RabbitMQTransport>();
+                 
+                 transporter.UseConventionalRoutingTopology();
+                 transporter.ConnectionString("host=localhost;username=guest;password=guest");
+                 transporter.Routing().RouteToEndpoint(type.Assembly, assembly, destinationEndPoint);
+                 //endPointConfiguration.UseTransport<LearningTransport>().Routing().RouteToEndpoint(type.Assembly,assembly,destinationEndPoint);
              });
             
             return services;
 
         }
+        public static IServiceCollection AddNServiceBus(this IServiceCollection services,Type type,string endpoint,string destinationEndpoint)
+        {
+            AddNServiceBus(services, endpoint, endPointConfiguration =>
+            {
+                var transporter = endPointConfiguration.UseTransport<RabbitMQTransport>();
+
+                transporter.UseConventionalRoutingTopology();
+                transporter.ConnectionString("host=localhost;username=guest;password=guest");
+                transporter.Routing().RouteToEndpoint(type.Assembly, destinationEndpoint);
+            });
+            return services;
+        }
         static IServiceCollection AddNServiceBus(this IServiceCollection services, string endPoint, Action<EndpointConfiguration> configuration)
         {
             var endPointConfiguration = new EndpointConfiguration(endPoint);
-
+            endPointConfiguration.EnableInstallers();
             configuration(endPointConfiguration);
 
             services.AddNServiceBus(endPointConfiguration);
@@ -36,7 +53,12 @@ namespace RD.Core.Messaging
         public static IServiceCollection AddNServiceBusPublisherEvent(this IServiceCollection services,string publisherEndpoint,Type type)
         {
            var endPointConfiguration= new EndpointConfiguration(publisherEndpoint);
-            var transporter=  endPointConfiguration.UseTransport<LearningTransport>();
+            endPointConfiguration.EnableInstallers();
+            var transporter=  endPointConfiguration.UseTransport<RabbitMQTransport>();
+           
+            transporter.UseConventionalRoutingTopology();
+            transporter.ConnectionString("host=localhost;username=guest;password=guest");
+
             AddNServiceBus(services, endPointConfiguration);      
        
        

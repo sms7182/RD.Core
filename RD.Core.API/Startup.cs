@@ -9,7 +9,8 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using NServiceBus;
 using RD.Core.Messaging;
-using RDNameSpace;
+
+using ShareNameSpace;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,7 +30,7 @@ namespace RD.Core.API
         public void ConfigureServices(IServiceCollection services)
         {
             var nserviceBusSecret = Configuration.GetSection("NServiceBusSecret").Get<NServiceBusSecret>();
-            services.AddNServiceBus(typeof(ClientPublishCommand), "RDNameSpace",nserviceBusSecret.EndpointHost, nserviceBusSecret.DestinationEndpointHost);
+            services.AddNServiceBus(typeof(ClientPublishCommand),"ShareNameSpace" , nserviceBusSecret.EndpointHost, nserviceBusSecret.DestinationEndpointHost);
           
 
             services.AddControllers();

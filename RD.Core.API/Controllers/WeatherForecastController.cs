@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Logging;
 using NServiceBus;
 using RD.Core.Messaging;
-using RDNameSpace;
+using ShareNameSpace;
 using System;
 using System.Collections.Generic;
 using System.Dynamic;
