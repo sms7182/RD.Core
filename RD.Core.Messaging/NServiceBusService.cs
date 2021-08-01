@@ -30,6 +30,8 @@ namespace RD.Core.Messaging
             }
 
             holder.MessageSession = endpoint;
+       
+            
         }
 
         public async Task StopAsync(CancellationToken cancellationToken)
@@ -64,5 +66,6 @@ namespace RD.Core.Messaging
         public IMessageSession MessageSession { get; internal set; }
 
         public ExceptionDispatchInfo StartupException { get; internal set; }
+       
     }
 }

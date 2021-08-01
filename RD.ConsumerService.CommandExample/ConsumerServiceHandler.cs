@@ -10,25 +10,22 @@ using System.Threading.Tasks;
 
 namespace RD.ConsumerService.CommandExample
 {
-    public class ConsumerServiceHandler :
-         IHandleMessages<ClientPublishCommand>
+    public class ConsumerServiceHandler : BaseCommandHandler<ClientPublishCommand>
+   
     {
         static readonly ILog log = LogManager.GetLogger<ConsumerServiceHandler>();
         static readonly Random random = new Random();
-        readonly IBus _bus;
-        public ConsumerServiceHandler()//(IBus bus)
+        
+
+        public ConsumerServiceHandler()
         {
-        //    _bus = bus;
         }
-        public async Task Handle(ClientPublishCommand message, IMessageHandlerContext context)
+
+        public override Task Handle(ClientPublishCommand message)//, IMessageHandlerContext context)
         {
             log.Info($"Received ClientPublishCommand Id = {message.Id}");
-
-            #region ThrowTransientException
-            #endregion
-
-            #region ThrowFatalException
-            #endregion
+            
+             
 
             var publishCommmandEvent = new PublishCommandEvent
             {
@@ -38,7 +35,11 @@ namespace RD.ConsumerService.CommandExample
             //log.Info($"Publishing OrderPlaced, OrderId = {message.Id}");
 
             //return context.Publish(orderPlaced);
-            await context.Publish(publishCommmandEvent);
+            // this.Bus.Publish(publishCommmandEvent).Wait();
+            return bus.Publish(publishCommmandEvent);
+            
         }
+
+      
     }
 }

@@ -1,6 +1,7 @@
 ﻿using NServiceBus;
 using NServiceBus.Logging;
 using RD.ConsumerService.CommandExample;
+using RD.Core.Messaging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,13 +10,16 @@ using System.Threading.Tasks;
 
 namespace RD.ConsumerService.EventExample
 {
-    public class PublishCommandEventHandler : IHandleMessages<PublishCommandEvent>
+    public class PublishCommandEventHandler : BaseEventHandler<PublishCommandEvent>
     {
         static readonly ILog log = LogManager.GetLogger<PublishCommandEventHandler>();
 
-        public async Task Handle(PublishCommandEvent message, IMessageHandlerContext context)
+        public override Task Handle(PublishCommandEvent message)
         {
             log.Info($"Event Message Receipt in EventProject:{message.Id}");
+            return Task.CompletedTask;
         }
+
+      
     }
 }

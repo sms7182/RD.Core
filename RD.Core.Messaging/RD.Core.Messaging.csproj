@@ -16,4 +16,8 @@
     <PackageReference Include="NServiceBus.RabbitMQ" Version="6.1.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\RD.Core.Contract\RD.Core.Contract.csproj" />
+  </ItemGroup>
+
 </Project>

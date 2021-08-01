@@ -68,6 +68,7 @@ namespace RD.Core.Messaging
                 return management.MessageSession;
             });
             services.AddSingleton(provider => new Lazy<IMessageSession>(provider.GetService<IMessageSession>));
+            
             services.AddSingleton<IBus, Bus>();
             
             return services;
