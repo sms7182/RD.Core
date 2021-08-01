@@ -17,15 +17,18 @@ namespace RD.ConsumerService.CommandExample
         static async Task Main(string[] args)
         {
             Console.Title = "CommandHanlder";
-            var serviceCollection=new ServiceCollection();
-            serviceCollection.AddScoped<IBus, Bus>();
+           
             await CreateHostBuilder(args).RunConsoleAsync();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args)
         {
             return Host.CreateDefaultBuilder(args).ConfigureAppConfiguration((hostContext, builder) => { builder.AddUserSecrets<NServiceBusSecret>(); })
-                       .UseNServiceBus(context =>
+             .ConfigureServices(d =>
+            {
+                d.AddScoped<IBus, Bus>();
+            })
+              .UseNServiceBus(context =>
                        {
                            var nserviceBusSection = context.Configuration.GetSection("NServiceBusSecret").Get<NServiceBusSecret>();
 

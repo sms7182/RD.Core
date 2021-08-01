@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace RD.Core.API.Configuration
+namespace RD.Core.Messaging
 {
     public class NServiceBusSecret
     {

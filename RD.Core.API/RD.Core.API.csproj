@@ -21,4 +21,8 @@
     <ProjectReference Include="..\RD.Core.Messaging\RD.Core.Messaging.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Configuration\" />
+  </ItemGroup>
+
 </Project>
