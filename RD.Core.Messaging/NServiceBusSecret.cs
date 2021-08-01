@@ -9,5 +9,7 @@ namespace RD.Core.Messaging
     {
         public string EndpointHost { get; set; }
         public string DestinationEndpointHost { get; set; }
+        public string RabbitConnectionInfo { get; set; }
+                
     }
 }

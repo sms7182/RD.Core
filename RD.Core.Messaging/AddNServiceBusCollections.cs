@@ -12,7 +12,7 @@ namespace RD.Core.Messaging
     public static class AddNServiceBusCollections
     {
 
-        public static IServiceCollection AddNServiceBus(this IServiceCollection services, Type type,string assembly,string endPoint,string destinationEndPoint)
+        public static IServiceCollection AddNServiceBus(this IServiceCollection services, Type type,string assembly,string endPoint,string destinationEndPoint,string rabbitConnection)
         {
 
             AddNServiceBus(services, endPoint,endPointConfiguration =>
@@ -20,7 +20,7 @@ namespace RD.Core.Messaging
                  var transporter = endPointConfiguration.UseTransport<RabbitMQTransport>();
                  
                  transporter.UseConventionalRoutingTopology();
-                 transporter.ConnectionString("host=localhost;username=guest;password=guest");
+                 transporter.ConnectionString(rabbitConnection);
                  transporter.Routing().RouteToEndpoint(type.Assembly, assembly, destinationEndPoint);
                  //endPointConfiguration.UseTransport<LearningTransport>().Routing().RouteToEndpoint(type.Assembly,assembly,destinationEndPoint);
              });
@@ -28,14 +28,14 @@ namespace RD.Core.Messaging
             return services;
 
         }
-        public static IServiceCollection AddNServiceBus(this IServiceCollection services,Type type,string endpoint,string destinationEndpoint)
+        public static IServiceCollection AddNServiceBus(this IServiceCollection services,Type type,string endpoint,string destinationEndpoint,string rabbitConnection)
         {
             AddNServiceBus(services, endpoint, endPointConfiguration =>
             {
                 var transporter = endPointConfiguration.UseTransport<RabbitMQTransport>();
 
                 transporter.UseConventionalRoutingTopology();
-                transporter.ConnectionString("host=localhost;username=guest;password=guest");
+                transporter.ConnectionString(rabbitConnection);
                 transporter.Routing().RouteToEndpoint(type.Assembly, destinationEndpoint);
             });
             return services;
@@ -50,14 +50,14 @@ namespace RD.Core.Messaging
             return services;
 
         }
-        public static IServiceCollection AddNServiceBusPublisherEvent(this IServiceCollection services,string publisherEndpoint,Type type)
+        public static IServiceCollection AddNServiceBusPublisherEvent(this IServiceCollection services,string publisherEndpoint,Type type,string rabbitConnectionString)
         {
            var endPointConfiguration= new EndpointConfiguration(publisherEndpoint);
             endPointConfiguration.EnableInstallers();
             var transporter=  endPointConfiguration.UseTransport<RabbitMQTransport>();
            
             transporter.UseConventionalRoutingTopology();
-            transporter.ConnectionString("host=localhost;username=guest;password=guest");
+            transporter.ConnectionString(rabbitConnectionString);
 
             AddNServiceBus(services, endPointConfiguration);      
        

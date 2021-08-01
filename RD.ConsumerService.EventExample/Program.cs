@@ -12,6 +12,9 @@ namespace RD.ConsumerService.EventExample
     public class NServiceBusSecret
     {
         public string EndpointHost { get; set; }
+        public string DestinationEndpointHost { get; set; }
+        public string RabbitConnectionInfo { get; set; }
+
     }
     class Program
     {
@@ -25,8 +28,8 @@ namespace RD.ConsumerService.EventExample
             return Host.CreateDefaultBuilder(args).ConfigureAppConfiguration((hostContext, builder) => { builder.AddUserSecrets<NServiceBusSecret>(); })
              .ConfigureServices((hostContext, services) =>
              {
-                 var nservisBusSecret = hostContext.Configuration.GetSection("NServiceBusSecret").Get<NServiceBusSecret>();
-                 services.AddNServiceBusPublisherEvent(nservisBusSecret.EndpointHost, typeof(PublishCommandEvent));
+                 var nservisBusSecret = hostContext.Configuration.GetSection(typeof(NServiceBusSecret).Name).Get<NServiceBusSecret>();
+                 services.AddNServiceBusPublisherEvent(nservisBusSecret.EndpointHost, typeof(PublishCommandEvent),nservisBusSecret.RabbitConnectionInfo);
                  services.AddScoped<IBus, Bus>();
 
              });

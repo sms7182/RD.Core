@@ -6,14 +6,21 @@ using RD.Core.Messaging;
 using System;
 using System.Threading.Tasks;
 
+
+
 namespace RD.ConsumerService.CommandExample
 {
-    public class NServiceBusSecret
+
+
+        public class NServiceBusSecret
     {
         public string EndpointHost { get; set; }
         public string DestinationEndpointHost { get; set; }
+        public string RabbitConnectionInfo { get; set; }
+
     }
-    class Program
+
+class Program
     {
         static async Task Main(string[] args)
         {
@@ -29,8 +36,8 @@ namespace RD.ConsumerService.CommandExample
                 .ConfigureAppConfiguration((hostContext, builder) => { builder.AddUserSecrets<NServiceBusSecret>(); })
              .ConfigureServices((hostContext, services) =>
             {
-                var nservisBusSecret = hostContext.Configuration.GetSection("NServiceBusSecret").Get<NServiceBusSecret>();
-                services.AddNServiceBusPublisherEvent(nservisBusSecret.EndpointHost, typeof(PublishCommandEvent));
+                var nservisBusSecret = hostContext.Configuration.GetSection(typeof(NServiceBusSecret).Name).Get<NServiceBusSecret>();
+                services.AddNServiceBusPublisherEvent(nservisBusSecret.EndpointHost, typeof(PublishCommandEvent),nservisBusSecret.RabbitConnectionInfo);
                 services.AddScoped<IBus, Bus>();
 
             });
