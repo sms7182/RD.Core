@@ -37,7 +37,7 @@ class Program
              .ConfigureServices((hostContext, services) =>
             {
                 var nservisBusSecret = hostContext.Configuration.GetSection(typeof(NServiceBusSecret).Name).Get<NServiceBusSecret>();
-                services.AddNServiceBusPublisherEvent(nservisBusSecret.EndpointHost, typeof(PublishCommandEvent),nservisBusSecret.RabbitConnectionInfo);
+                services.AddNServiceBusPublisherEvent(nservisBusSecret.EndpointHost,nservisBusSecret.RabbitConnectionInfo);
                 services.AddScoped<IBus, Bus>();
 
             });

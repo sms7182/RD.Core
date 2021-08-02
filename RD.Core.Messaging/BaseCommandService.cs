@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using NServiceBus;
+using RD.Core.Contract.Commands;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace RD.Core.Messaging
 {
-    public abstract class BaseCommandHandler<T>: IHandleMessages<T> where T:RD.Core.Contract.Commands.ICommand
+    public abstract class BaseCommandHandler<T>: IHandleMessages<T> where T:BaseCommand
     {
         IBus Bus { get; set; }
         public IMessageHandlerContext bus;

@@ -8,8 +8,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using NServiceBus;
+using SagaNameSpace;
 using RD.Core.Messaging;
-
 using ShareNameSpace;
 using System;
 using System.Collections.Generic;
@@ -31,9 +31,9 @@ namespace RD.Core.API
         {
             var nserviceBusSecret = Configuration.GetSection(typeof(NServiceBusSecret).Name)
                 .Get<NServiceBusSecret>();
-            services.AddNServiceBus(typeof(ClientPublishCommand),"ShareNameSpace" , nserviceBusSecret.EndpointHost, nserviceBusSecret.DestinationEndpointHost,nserviceBusSecret.RabbitConnectionInfo);
-          
-
+            services.AddNServiceBus(typeof(ClientPublishCommand), "ShareNameSpace", nserviceBusSecret.EndpointHost, nserviceBusSecret.DestinationEndpointHost, nserviceBusSecret.RabbitConnectionInfo)
+              .AddNServiceBus(typeof(SagaStartingCommand),"SagaNameSpace",nserviceBusSecret.EndpointHost,nserviceBusSecret.SagaEndpointHost,nserviceBusSecret.RabbitConnectionInfo);
+            
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

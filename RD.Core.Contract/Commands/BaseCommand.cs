@@ -5,10 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RD.Core.Contract.Events
+namespace RD.Core.Contract.Commands
 {
-    public interface IEvent: NServiceBus.IEvent
+    public abstract class BaseCommand:Command,ICommand
     {
-        Guid Id { get; set; }
     }
 }

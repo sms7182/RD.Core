@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace ShareNameSpace
 {
-    public class ClientPublishCommand : ICommand
+    public class ClientPublishCommand : BaseCommand
     {
-        public Guid Id { get; set; }
+     
         public ClientPublishCommand()
         {
             Id = Guid.NewGuid();

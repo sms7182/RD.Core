@@ -7,10 +7,9 @@ using System.Threading.Tasks;
 
 namespace RD.ConsumerService.CommandExample
 {
-    public class PublishCommandEvent:IEvent
+    public class PublishCommandEvent:BaseEvent
     {
-        public Guid Id { get; set; }
-
+    
         public PublishCommandEvent()
         {
             Id = Guid.NewGuid();

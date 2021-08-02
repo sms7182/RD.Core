@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Logging;
 using NServiceBus;
 using RD.Core.Messaging;
+using SagaNameSpace;
 using ShareNameSpace;
 using System;
 using System.Collections.Generic;
@@ -45,7 +46,7 @@ namespace RD.Core.API.Controllers
             .ToArray();
         }
 
-        [HttpPost]
+        [HttpPost("sendCommand")]
         public async Task<ActionResult> SendCommand()
         {
             string orderId = Guid.NewGuid().ToString().Substring(0, 8);
@@ -59,6 +60,42 @@ namespace RD.Core.API.Controllers
             model.OrderId = orderId;
             model.MessagesSent = Interlocked.Increment(ref messagesSent);
             return Ok();
-        }                
+        }
+
+
+        [HttpPost("fireWorkflow")]
+        public async Task<ActionResult> FireWorkflow()
+        {
+            string orderId = Guid.NewGuid().ToString().Substring(0, 8);
+
+            var command = new SagaStartingCommand();
+            command.Id = Guid.NewGuid();
+
+            await _bus.Send(command);
+            _logger.LogInformation($"Sending PlaceOrder, OrderId = {orderId}");
+
+            dynamic model = new ExpandoObject();
+            model.OrderId = orderId;
+            model.MessagesSent = Interlocked.Increment(ref messagesSent);
+            return Ok(command.Id);
+        }
+
+        [HttpPost("completeWorkflow")]
+        public async Task<ActionResult> CompleteWorkflow(Guid id)
+        {
+            string orderId = Guid.NewGuid().ToString().Substring(0, 8);
+
+            var command = new SagaCompleteCommand();
+            command.Id =id;
+
+            await _bus.Send(command);
+            _logger.LogInformation($"Sending PlaceOrder, OrderId = {orderId}");
+
+            dynamic model = new ExpandoObject();
+            model.OrderId = orderId;
+            model.MessagesSent = Interlocked.Increment(ref messagesSent);
+            return Ok();
+        }
+
     }
 }

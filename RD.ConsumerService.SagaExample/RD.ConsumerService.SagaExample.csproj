@@ -1,24 +1,20 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Library</OutputType>
+    <OutputType>Exe</OutputType>
     <TargetFramework>net5.0</TargetFramework>
-    <UserSecretsId>5b62703e-209c-4ad5-b236-bb39c389c62c</UserSecretsId>
-    <ApplicationIcon />
-    <StartupObject />
+    <UserSecretsId>b16c78bd-5127-44ec-82b0-f8a404096e25</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="5.0.0" />
     <PackageReference Include="NServiceBus" Version="7.5.0" />
-    <PackageReference Include="NServiceBus.Extensions.DependencyInjection" Version="1.0.1" />
     <PackageReference Include="NServiceBus.Extensions.Hosting" Version="1.1.0" />
-    <PackageReference Include="NServiceBus.Persistence.MongoDb" Version="9.0.1" />
-    <PackageReference Include="NServiceBus.RabbitMQ" Version="6.1.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\RD.Core.Contract\RD.Core.Contract.csproj" />
+    <ProjectReference Include="..\RD.Core.Messaging\RD.Core.Messaging.csproj" />
   </ItemGroup>
 
 </Project>

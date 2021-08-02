@@ -1,14 +1,15 @@
 ﻿using NServiceBus;
+using RD.Core.Contract.Commands;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RD.Core.Contract.Messages
+namespace RD.Core.Contract.Events
 {
-    public interface IMessage:NServiceBus.IMessage
+    public abstract class BaseEvent:Command, IEvent
     {
-        Guid Id { get; set; }
+        
     }
 }

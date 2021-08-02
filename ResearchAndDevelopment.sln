@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RD.ConsumerService.CommandE
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RD.Core.API", "RD.Core.API\RD.Core.API.csproj", "{5C2C1047-752B-4974-AE19-E1E057590C11}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RD.ConsumerService.EventExample", "RD.ConsumerService.EventExample\RD.ConsumerService.EventExample.csproj", "{F5B79801-99D5-4A78-8154-7F70324CB4DF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RD.ConsumerService.EventExample", "RD.ConsumerService.EventExample\RD.ConsumerService.EventExample.csproj", "{F5B79801-99D5-4A78-8154-7F70324CB4DF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RD.ConsumerService.SagaExample", "RD.ConsumerService.SagaExample\RD.ConsumerService.SagaExample.csproj", "{DE9AC888-279F-4515-8BA2-B887CE519DD6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{F5B79801-99D5-4A78-8154-7F70324CB4DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F5B79801-99D5-4A78-8154-7F70324CB4DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F5B79801-99D5-4A78-8154-7F70324CB4DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE9AC888-279F-4515-8BA2-B887CE519DD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE9AC888-279F-4515-8BA2-B887CE519DD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE9AC888-279F-4515-8BA2-B887CE519DD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE9AC888-279F-4515-8BA2-B887CE519DD6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

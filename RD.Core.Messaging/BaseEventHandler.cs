@@ -1,4 +1,5 @@
 ﻿using NServiceBus;
+using RD.Core.Contract.Events;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace RD.Core.Messaging
 {
-    public abstract class BaseEventHandler<T>: IHandleMessages<T> where T : RD.Core.Contract.Events.IEvent
+    public abstract class BaseEventHandler<T>: IHandleMessages<T> where T : BaseEvent
     {
 
         IBus Bus { get; set; }

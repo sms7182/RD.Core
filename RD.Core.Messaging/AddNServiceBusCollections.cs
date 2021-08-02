@@ -1,5 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using NServiceBus;
+using NServiceBus.Persistence.MongoDB;
+using NServiceBus.Transport.RabbitMQ;
 using RD.Core.Messaging;
 using System;
 using System.Collections.Generic;
@@ -11,7 +13,7 @@ namespace RD.Core.Messaging
 {
     public static class AddNServiceBusCollections
     {
-
+      
         public static IServiceCollection AddNServiceBus(this IServiceCollection services, Type type,string assembly,string endPoint,string destinationEndPoint,string rabbitConnection)
         {
 
@@ -19,9 +21,11 @@ namespace RD.Core.Messaging
              {
                  var transporter = endPointConfiguration.UseTransport<RabbitMQTransport>();
                  
+
                  transporter.UseConventionalRoutingTopology();
                  transporter.ConnectionString(rabbitConnection);
                  transporter.Routing().RouteToEndpoint(type.Assembly, assembly, destinationEndPoint);
+                
                  //endPointConfiguration.UseTransport<LearningTransport>().Routing().RouteToEndpoint(type.Assembly,assembly,destinationEndPoint);
              });
             
@@ -50,25 +54,27 @@ namespace RD.Core.Messaging
             return services;
 
         }
-        public static IServiceCollection AddNServiceBusPublisherEvent(this IServiceCollection services,string publisherEndpoint,Type type,string rabbitConnectionString)
+        public static IServiceCollection AddNServiceBusPublisherEvent(this IServiceCollection services,string publisherEndpoint,string rabbitConnectionString)
         {
            var endPointConfiguration= new EndpointConfiguration(publisherEndpoint);
             endPointConfiguration.EnableInstallers();
             var transporter=  endPointConfiguration.UseTransport<RabbitMQTransport>();
-           
             transporter.UseConventionalRoutingTopology();
             transporter.ConnectionString(rabbitConnectionString);
-
+            
             AddNServiceBus(services, endPointConfiguration);      
        
        
             return services;
         }
        
-        static IServiceCollection AddNServiceBus(this IServiceCollection services, EndpointConfiguration configuration)
+        static IServiceCollection AddNServiceBus(this IServiceCollection services, EndpointConfiguration endPointConfiguration)
         {
-            services.AddSingleton(configuration);
-            services.AddSingleton(new SessionAndConfigurationHolder(configuration));
+            //  endPointConfiguration.UsePersistence<MongoDbPersistence>().SetConnectionString("");
+            endPointConfiguration.UsePersistence<InMemoryPersistence>();
+              services.AddSingleton(endPointConfiguration);
+            
+            services.AddSingleton(new SessionAndConfigurationHolder(endPointConfiguration));
             services.AddHostedService<NServiceBusService>();
             services.AddSingleton(provider =>
             {
