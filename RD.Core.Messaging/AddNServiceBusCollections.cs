@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using MongoDB.Driver;
 using NServiceBus;
-using NServiceBus.Persistence.MongoDB;
 using NServiceBus.Transport.RabbitMQ;
 using RD.Core.Messaging;
 using System;
@@ -70,8 +70,8 @@ namespace RD.Core.Messaging
        
         static IServiceCollection AddNServiceBus(this IServiceCollection services, EndpointConfiguration endPointConfiguration)
         {
-            //  endPointConfiguration.UsePersistence<MongoDbPersistence>().SetConnectionString("");
-            endPointConfiguration.UsePersistence<InMemoryPersistence>();
+           endPointConfiguration.UsePersistence<MongoPersistence>().MongoClient(new MongoClient("mongodb://localhost:27017")).UseTransactions(false).DatabaseName("SagaDB");
+         //   endPointConfiguration.UsePersistence<InMemoryPersistence>();
               services.AddSingleton(endPointConfiguration);
             
             services.AddSingleton(new SessionAndConfigurationHolder(endPointConfiguration));

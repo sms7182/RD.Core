@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net5.0</TargetFramework>
+    <UserSecretsId>9d0892d1-d46c-473a-b052-8e76484e9c94</UserSecretsId>
+  </PropertyGroup>
+
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="5.0.0" />
+		<PackageReference Include="NServiceBus" Version="7.5.0" />
+		<PackageReference Include="NServiceBus.Extensions.Hosting" Version="1.1.0" />
+		<PackageReference Include="NServiceBus.Heartbeat" Version="3.0.1" />
+		<PackageReference Include="NServiceBus.Metrics.ServiceControl" Version="3.0.6" />
+		<PackageReference Include="NServiceBus.RabbitMQ" Version="6.1.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Reference Include="RD.Core.Contract">
+			<HintPath>..\..\ResearchAndDevelopment\RD.Core.Messaging\bin\Debug\net5.0\RD.Core.Contract.dll</HintPath>
+		</Reference>
+		<Reference Include="RD.Core.Messaging">
+			<HintPath>..\..\ResearchAndDevelopment\RD.Core.Messaging\bin\Debug\net5.0\RD.Core.Messaging.dll</HintPath>
+		</Reference>
+	</ItemGroup>
+</Project>
