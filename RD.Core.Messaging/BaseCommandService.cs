@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using NServiceBus;
-using RD.Core.Contract.Commands;
+using RD.Core.Messaging.Contracts.Commands;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -57,7 +57,11 @@ namespace RD.Core.Messaging
 
     public class SagaData : ContainSagaData
     {
-
+        public SagaData()
+        {
+            CreationDate = DateTime.Now;
+        }
+        public DateTime CreationDate { get; set; }
     }
 
 

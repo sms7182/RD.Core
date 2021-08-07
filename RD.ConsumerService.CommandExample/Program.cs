@@ -37,7 +37,7 @@ class Program
              .ConfigureServices((hostContext, services) =>
             {
                 var nservisBusSecret = hostContext.Configuration.GetSection(typeof(NServiceBusSecret).Name).Get<NServiceBusSecret>();
-                services.AddNServiceBusPublisherEvent(nservisBusSecret.EndpointHost,nservisBusSecret.RabbitConnectionInfo);
+                services.AddNServiceBusPublisherEvent(nservisBusSecret.EndpointHost,nservisBusSecret.RabbitConnectionInfo, "mongodb://localhost:27017");
                 services.AddScoped<IBus, Bus>();
 
             });

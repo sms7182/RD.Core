@@ -38,8 +38,8 @@ namespace RD.Core.API
 
              //.AddNServiceBus(typeof(ClientPublishCommand), "ShareNameSpace", nserviceBusSecret.EndpointHost, nserviceBusSecret.DestinationEndpointHost, nserviceBusSecret.RabbitConnectionInfo)
              // .AddNServiceBus(typeof(SagaStartingCommand),"SagaNameSpace",nserviceBusSecret.EndpointHost,nserviceBusSecret.SagaEndpointHost,nserviceBusSecret.RabbitConnectionInfo);
-             .AddNServiceBus(nserviceBusSecret.EndpointHost,keyValuePairs,nserviceBusSecret.RabbitConnectionInfo);
-            
+             .AddNServiceBus(nserviceBusSecret.EndpointHost,keyValuePairs,nserviceBusSecret.RabbitConnectionInfo, "mongodb://localhost:27017/SagaDB");
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

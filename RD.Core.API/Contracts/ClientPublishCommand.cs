@@ -1,4 +1,5 @@
-﻿using RD.Core.Contract.Commands;
+﻿
+using RD.Core.Messaging.Contracts.Commands;
 using System;
 using System.Collections.Generic;
 using System.Linq;

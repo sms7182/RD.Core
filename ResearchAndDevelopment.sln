@@ -5,15 +5,13 @@ VisualStudioVersion = 16.0.31321.278
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RD.Core.Messaging", "RD.Core.Messaging\RD.Core.Messaging.csproj", "{7A12B9A5-A8CF-4651-A24B-6025E0511427}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RD.Core.Contract", "RD.Core.Contract\RD.Core.Contract.csproj", "{B6508535-6048-434A-BA60-1096E1EA2E38}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RD.ConsumerService.CommandExample", "RD.ConsumerService.CommandExample\RD.ConsumerService.CommandExample.csproj", "{F321A70F-7E5D-446E-958E-872CDD647060}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RD.Core.API", "RD.Core.API\RD.Core.API.csproj", "{5C2C1047-752B-4974-AE19-E1E057590C11}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RD.ConsumerService.EventExample", "RD.ConsumerService.EventExample\RD.ConsumerService.EventExample.csproj", "{F5B79801-99D5-4A78-8154-7F70324CB4DF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RD.ConsumerService.SagaExample", "RD.ConsumerService.SagaExample\RD.ConsumerService.SagaExample.csproj", "{DE9AC888-279F-4515-8BA2-B887CE519DD6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RD.ConsumerService.SagaExample", "RD.ConsumerService.SagaExample\RD.ConsumerService.SagaExample.csproj", "{DE9AC888-279F-4515-8BA2-B887CE519DD6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,10 +23,6 @@ Global
 		{7A12B9A5-A8CF-4651-A24B-6025E0511427}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7A12B9A5-A8CF-4651-A24B-6025E0511427}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7A12B9A5-A8CF-4651-A24B-6025E0511427}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B6508535-6048-434A-BA60-1096E1EA2E38}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B6508535-6048-434A-BA60-1096E1EA2E38}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B6508535-6048-434A-BA60-1096E1EA2E38}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B6508535-6048-434A-BA60-1096E1EA2E38}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F321A70F-7E5D-446E-958E-872CDD647060}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F321A70F-7E5D-446E-958E-872CDD647060}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F321A70F-7E5D-446E-958E-872CDD647060}.Release|Any CPU.ActiveCfg = Release|Any CPU

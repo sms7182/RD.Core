@@ -30,7 +30,7 @@ namespace RD.ConsumerService.SagaExample
                   .ConfigureServices((hostContext,services)=> 
                   {
                      var nserviceBusSecret= hostContext.Configuration.GetSection(typeof(NServiceBusSecret).Name).Get<NServiceBusSecret>();
-                      services.AddNServiceBusPublisherEvent(nserviceBusSecret.EndpointHost,  nserviceBusSecret.RabbitConnectionInfo);
+                      services.AddNServiceBusPublisherEvent(nserviceBusSecret.EndpointHost,  nserviceBusSecret.RabbitConnectionInfo, "mongodb://localhost:27017/SagaDB");
                     
                   });
 

@@ -1,14 +1,13 @@
-﻿using RD.Core.Messaging.Contracts.Commands;
+﻿using NServiceBus;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SagaNameSpace
+namespace RD.Core.Messaging.Contracts.Commands
 {
-    public class SagaCompleteCommand:BaseCommand
+    public abstract class BaseCommand:Command,ICommand
     {
-   
     }
 }

@@ -1,14 +1,15 @@
-﻿
+﻿using NServiceBus;
 using RD.Core.Messaging.Contracts.Commands;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
-namespace SagaNameSpace
+namespace RD.Core.Messaging.Contracts.Events
 {
-    public class SagaStartingCommand:BaseCommand
+    public abstract class BaseEvent:Command, IEvent
     {
-      
+        
     }
 }

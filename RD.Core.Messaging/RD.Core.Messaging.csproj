@@ -17,8 +17,4 @@
     <PackageReference Include="NServiceBus.Storage.MongoDB" Version="2.2.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\RD.Core.Contract\RD.Core.Contract.csproj" />
-  </ItemGroup>
-
 </Project>

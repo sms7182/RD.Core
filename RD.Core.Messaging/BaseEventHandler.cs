@@ -1,5 +1,5 @@
 ﻿using NServiceBus;
-using RD.Core.Contract.Events;
+using RD.Core.Messaging.Contracts.Events;
 using System;
 using System.Collections.Generic;
 using System.Linq;

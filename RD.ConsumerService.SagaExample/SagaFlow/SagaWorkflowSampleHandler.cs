@@ -12,20 +12,10 @@ using System.Threading.Tasks;
 namespace RD.ConsumerService.SagaExample
 {
     public class SagaWorkflowSampleHandler :BaseSagaHandler<SagaDataSample,SagaStartingCommand> ,IHandleMessages<SagaCompleteCommand>
-        //Saga<SagaDataSample>, IAmStartedByMessages<SagaStartingCommand>, IHandleMessages<SagaCompleteCommand>
+        
     {
         
-        //protected override void ConfigureHowToFindSaga(SagaPropertyMapper<SagaDataSample> mapper)
-        //{
-        //    mapper.ConfigureMapping<SagaStartingCommand>(message => message.Id).ToSaga(sagaData => sagaData.SagaIdentifier);
-        //    mapper.ConfigureMapping<SagaCompleteCommand>(message => message.Id).ToSaga(sagaData => sagaData.SagaIdentifier);
-        //}
-        //public Task Handle(SagaStartingCommand message, IMessageHandlerContext context)
-        //{
-            
-        //    return Task.CompletedTask;
-        //}
-
+    
         public Task Handle(SagaCompleteCommand message, IMessageHandlerContext context)
         {
             MarkAsComplete();
