@@ -33,35 +33,9 @@ namespace RD.Core.Messaging
 
             return services;
         }
-        public static IServiceCollection AddNServiceBus(this IServiceCollection services, Type type,string assembly,string endPoint,string destinationEndPoint,string rabbitConnection,string mongoConfiguration)
-        {
-
-            AddNServiceBus(services, endPoint,endPointConfiguration =>
-             {
-                 var transporter = endPointConfiguration.UseTransport<RabbitMQTransport>();
-                 
-
-                 transporter.UseConventionalRoutingTopology();
-                 transporter.ConnectionString(rabbitConnection);
-                 transporter.Routing().RouteToEndpoint(type.Assembly, assembly, destinationEndPoint);
-                
-                
-             },mongoConfiguration);
-            
-            return services;
-
-        }
+      
         
-        static IServiceCollection AddNServiceBus(this IServiceCollection services, string endPoint, Action<EndpointConfiguration> configuration,string mongoConfiguration)
-        {
-            var endPointConfiguration = new EndpointConfiguration(endPoint);
-            endPointConfiguration.EnableInstallers();
-            configuration(endPointConfiguration);
-
-            services.AddNServiceBus(endPointConfiguration,mongoConfiguration);
-            return services;
-
-        }
+        
         public static IServiceCollection AddNServiceBusPublisherEvent(this IServiceCollection services,string publisherEndpoint,string rabbitConnectionString,string mongoConfiguration)
         {
            var endPointConfiguration= new EndpointConfiguration(publisherEndpoint);
@@ -70,14 +44,23 @@ namespace RD.Core.Messaging
             transporter.UseConventionalRoutingTopology();
             transporter.ConnectionString(rabbitConnectionString);
             
-            AddNServiceBus(services, endPointConfiguration,mongoConfiguration);      
+            AddNServiceBus(services,publisherEndpoint,endPointConfigure=> { 
+                endPointConfigure.EnableInstallers();
+                endPointConfigure.UseTransport<RabbitMQTransport>()
+                                 .UseConventionalRoutingTopology()
+                                 .ConnectionString(rabbitConnectionString); 
+            },mongoConfiguration);      
        
        
             return services;
         }
        
-        static IServiceCollection AddNServiceBus(this IServiceCollection services, EndpointConfiguration endPointConfiguration,string mongoConfiguration)
+        static IServiceCollection AddNServiceBus(this IServiceCollection services,string endPoint,Action<EndpointConfiguration> configuration, string mongoConfiguration)
         {
+            var endPointConfiguration = new EndpointConfiguration(endPoint);
+            endPointConfiguration.EnableInstallers();
+            configuration(endPointConfiguration);
+
             if (!string.IsNullOrWhiteSpace(mongoConfiguration))
                 endPointConfiguration.UsePersistence<MongoPersistence>().MongoClient(new MongoClient(mongoConfiguration)).UseTransactions(false).DatabaseName("SagaDB");
          else   endPointConfiguration.UsePersistence<InMemoryPersistence>();
