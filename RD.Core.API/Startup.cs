@@ -31,9 +31,14 @@ namespace RD.Core.API
         {
             var nserviceBusSecret = Configuration.GetSection(typeof(NServiceBusSecret).Name)
                 .Get<NServiceBusSecret>();
+            Dictionary<string, KeyValuePair<Type, string>> keyValuePairs = new Dictionary<string, KeyValuePair<Type, string>>();
+            keyValuePairs.Add("ShareNameSpace", new KeyValuePair<Type, string>(typeof(ClientPublishCommand), nserviceBusSecret.DestinationEndpointHost));
+            keyValuePairs.Add("SagaNameSpace",new KeyValuePair<Type, string>(typeof(SagaStartingCommand), nserviceBusSecret.SagaEndpointHost));
             services
-                //.AddNServiceBus(typeof(ClientPublishCommand), "ShareNameSpace", nserviceBusSecret.EndpointHost, nserviceBusSecret.DestinationEndpointHost, nserviceBusSecret.RabbitConnectionInfo)
-              .AddNServiceBus(typeof(SagaStartingCommand),"SagaNameSpace",nserviceBusSecret.EndpointHost,nserviceBusSecret.SagaEndpointHost,nserviceBusSecret.RabbitConnectionInfo);
+
+             //.AddNServiceBus(typeof(ClientPublishCommand), "ShareNameSpace", nserviceBusSecret.EndpointHost, nserviceBusSecret.DestinationEndpointHost, nserviceBusSecret.RabbitConnectionInfo)
+             // .AddNServiceBus(typeof(SagaStartingCommand),"SagaNameSpace",nserviceBusSecret.EndpointHost,nserviceBusSecret.SagaEndpointHost,nserviceBusSecret.RabbitConnectionInfo);
+             .AddNServiceBus(nserviceBusSecret.EndpointHost,keyValuePairs,nserviceBusSecret.RabbitConnectionInfo);
             
             services.AddControllers();
             services.AddSwaggerGen(c =>

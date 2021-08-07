@@ -14,6 +14,27 @@ namespace RD.Core.Messaging
     public static class AddNServiceBusCollections
     {
       
+        public static IServiceCollection AddNServiceBus(this IServiceCollection services,string endPoint,Dictionary<string,KeyValuePair<Type,string>> destionationEndpoints,string rabbitConnection)
+        {
+            AddNServiceBus(services, endPoint, endPointConfiguration =>
+            {
+                var transporter = endPointConfiguration.UseTransport<RabbitMQTransport>();
+
+
+                transporter.UseConventionalRoutingTopology();
+                transporter.ConnectionString(rabbitConnection);
+                var routing=transporter.Routing();
+                foreach (var typedic in destionationEndpoints)
+                {
+                    routing.RouteToEndpoint(typedic.Value.Key.Assembly,typedic.Key, typedic.Value.Value);
+                }
+                //.RouteToEndpoint(type.Assembly, assembly, destinationEndPoint);
+
+              
+            });
+
+            return services;
+        }
         public static IServiceCollection AddNServiceBus(this IServiceCollection services, Type type,string assembly,string endPoint,string destinationEndPoint,string rabbitConnection)
         {
 
