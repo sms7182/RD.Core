@@ -30,4 +30,35 @@ namespace RD.Core.Messaging
         }
     }
 
+    public abstract class BaseSagaHandler<T, U> : Saga<T>,IAmStartedByMessages<U> where T:ContainSagaData,new() where U:BaseCommand
+    {
+       
+
+        public abstract Task Handle(U command);
+        public Task Handle(U message,IMessageHandlerContext context)
+        {
+            Handle(message);
+            return Task.CompletedTask;
+        }
+
+
+        public abstract void ConfigureSagaFinder(SagaPropertyMapper<T> mapper);
+        protected override void ConfigureHowToFindSaga(IConfigureHowToFindSagaWithMessage sagaMessageFindingConfiguration)
+        {
+            base.ConfigureHowToFindSaga(sagaMessageFindingConfiguration);
+        }
+
+        protected override void ConfigureHowToFindSaga(SagaPropertyMapper<T> mapper)
+        {
+            
+            ConfigureSagaFinder(mapper);
+        }
+    }
+
+    public class SagaData : ContainSagaData
+    {
+
+    }
+
+
 }
