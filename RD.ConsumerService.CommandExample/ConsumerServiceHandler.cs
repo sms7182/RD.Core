@@ -16,10 +16,11 @@ namespace RD.ConsumerService.CommandExample
     {
         static readonly ILog log = LogManager.GetLogger<ConsumerServiceHandler>();
         static readonly Random random = new Random();
-        
-
-        public ConsumerServiceHandler()
+        IExampleService _exampleService;
+        public ConsumerServiceHandler(IExampleService exampleService)
         {
+            _exampleService = exampleService;
+          
         }
 
         public override Task Handle(ClientPublishCommand message)//, IMessageHandlerContext context)
@@ -37,7 +38,7 @@ namespace RD.ConsumerService.CommandExample
 
             //return context.Publish(orderPlaced);
             // this.Bus.Publish(publishCommmandEvent).Wait();
-            return bus.Publish(publishCommmandEvent);
+            return _exampleService.Bus.Publish(publishCommmandEvent);
             
         }
 

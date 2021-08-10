@@ -9,13 +9,14 @@ using System.Threading.Tasks;
 
 namespace RD.Core.Messaging
 {
-    class NServiceBusService : IHostedService
+   public  class  NServiceBusService : IHostedService
     {
         public NServiceBusService(SessionAndConfigurationHolder holder)
         {
             this.holder = holder;
         }
 
+        
         public async Task StartAsync(CancellationToken cancellationToken)
         {
             try
@@ -31,7 +32,7 @@ namespace RD.Core.Messaging
 
             holder.MessageSession = endpoint;
        
-            
+           
         }
 
         public async Task StopAsync(CancellationToken cancellationToken)
@@ -51,8 +52,9 @@ namespace RD.Core.Messaging
             }
         }
 
-        readonly SessionAndConfigurationHolder holder;
-        IEndpointInstance endpoint;
+        public readonly SessionAndConfigurationHolder holder;
+        public IEndpointInstance endpoint;
+        
     }
     public class SessionAndConfigurationHolder
     {
@@ -64,6 +66,7 @@ namespace RD.Core.Messaging
         public EndpointConfiguration EndpointConfiguration { get; }
 
         public IMessageSession MessageSession { get; internal set; }
+       
 
         public ExceptionDispatchInfo StartupException { get; internal set; }
        

@@ -15,9 +15,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using RD.Core.API.Controllers;
+using System.Threading;
 
 namespace RD.Core.API
 {
+ 
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -29,17 +32,14 @@ namespace RD.Core.API
 
         public void ConfigureServices(IServiceCollection services)
         {
+           
             var nserviceBusSecret = Configuration.GetSection(typeof(NServiceBusSecret).Name)
                 .Get<NServiceBusSecret>();
             Dictionary<string, KeyValuePair<Type, string>> keyValuePairs = new Dictionary<string, KeyValuePair<Type, string>>();
             keyValuePairs.Add("ShareNameSpace", new KeyValuePair<Type, string>(typeof(ClientPublishCommand), nserviceBusSecret.DestinationEndpointHost));
             keyValuePairs.Add("SagaNameSpace",new KeyValuePair<Type, string>(typeof(SagaStartingCommand), nserviceBusSecret.SagaEndpointHost));
-            services
-
-             //.AddNServiceBus(typeof(ClientPublishCommand), "ShareNameSpace", nserviceBusSecret.EndpointHost, nserviceBusSecret.DestinationEndpointHost, nserviceBusSecret.RabbitConnectionInfo)
-             // .AddNServiceBus(typeof(SagaStartingCommand),"SagaNameSpace",nserviceBusSecret.EndpointHost,nserviceBusSecret.SagaEndpointHost,nserviceBusSecret.RabbitConnectionInfo);
-             .AddNServiceBus(nserviceBusSecret.EndpointHost,keyValuePairs,nserviceBusSecret.RabbitConnectionInfo, "mongodb://localhost:27017/SagaDB");
-
+            services.AddNServiceBus(nserviceBusSecret.EndpointHost,keyValuePairs,nserviceBusSecret.RabbitConnectionInfo, "mongodb://localhost:27017");
+           
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

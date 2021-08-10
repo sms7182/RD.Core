@@ -80,7 +80,7 @@ namespace RD.Core.API.Controllers
             return Ok(command.Id);
         }
 
-        [HttpPost("completeWorkflow")]
+        [HttpPost("completeWorkflow/{id}")]
         public async Task<ActionResult> CompleteWorkflow(Guid id)
         {
             string orderId = Guid.NewGuid().ToString().Substring(0, 8);

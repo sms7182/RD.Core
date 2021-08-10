@@ -60,7 +60,7 @@ namespace RD.Core.Messaging
             var endPointConfiguration = new EndpointConfiguration(endPoint);
             endPointConfiguration.EnableInstallers();
             configuration(endPointConfiguration);
-
+           
             if (!string.IsNullOrWhiteSpace(mongoConfiguration))
                 endPointConfiguration.UsePersistence<MongoPersistence>().MongoClient(new MongoClient(mongoConfiguration)).UseTransactions(false).DatabaseName("SagaDB");
          else   endPointConfiguration.UsePersistence<InMemoryPersistence>();
@@ -88,7 +88,7 @@ namespace RD.Core.Messaging
                 return management.MessageSession;
             });
             services.AddSingleton(provider => new Lazy<IMessageSession>(provider.GetService<IMessageSession>));
-            
+            services.AddSingleton(provi => provi.GetService(typeof(IServiceProvider)));
             services.AddSingleton<IBus, Bus>();
             
             return services;
